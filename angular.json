@@ -38,7 +38,7 @@
           },
           "configurations": {
             "github-pages": {
-              "baseHref": "/TestApp/"
+              "baseHref": "/TestApp/docs/"
             },
             "production": {
               "budgets": [
