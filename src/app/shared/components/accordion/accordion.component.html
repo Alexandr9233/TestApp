@@ -1,0 +1,87 @@
+<div class="users-cont" *ngIf="userDetails">
+    <mat-accordion multi="false">
+        <mat-expansion-panel class="users-panel" *ngFor="let user of userDetails; let i = index" (closed)="showChangesField = false"
+        (opened)="onOpenUserPanel(user)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            {{user.first_name}} {{user.last_name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="user-info-cont">
+                <div>
+                <div class="avatar-wrap">
+                    <img [src]="user.avatar" alt="">
+                </div>
+                <div class="desc-wrap">
+                    <span class="email">{{user.email}}</span>
+                </div>
+                <button mat-raised-button class="remove" (click)="onRemoveUser(user.id)">Remove</button>
+                <button mat-raised-button class="change" (click)="showChangesField = true">Change</button>
+            </div>
+            <div *ngIf="showChangesField">
+                <form class="change-data-cont" [formGroup]="userForm" (ngSubmit)="onSubmitUserForm(user.id)">
+                    <mat-form-field>
+                        <mat-label>First name</mat-label>
+                        <input matInput [value]="user.id" formControlName="first_name">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Last name</mat-label>
+                        <input matInput [value]="user.id" formControlName="last_name">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput [value]="user.id" formControlName="email">
+                    </mat-form-field>
+                    <div class="btns-block">
+                        <button mat-raised-button type="submit" class="change" [disabled]="!userForm.valid">Save</button>
+                        <button mat-raised-button class="cancel" (click)="showChangesField = false">Cancel</button>
+                    </div>
+                </form>
+            </div>       
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<div class="unknown-cont" *ngIf="unknownDetails">    
+      <mat-accordion multi="false">
+        <mat-expansion-panel *ngFor="let unknown of unknownDetails" class="unknowns-panel" (closed)="showChangesField = false"
+        (opened)="onOpenUnknownPanel(unknown)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{unknown.name | titlecase}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="unknown-info-cont">
+                <div>
+                    <div class="year"><b>Year:</b> {{unknown.year}}</div>
+                    <div class="color"><b>Color:</b> {{unknown.color}}</div>
+                    <div class="pantone"><b>Pantone:</b> {{unknown.pantone_value}}</div>
+                    <button mat-raised-button class="remove" (click)="onRemoveUnknown(unknown.id)">Remove</button>
+                    <button mat-raised-button class="change" (click)="showChangesField = true">Change</button>
+                </div>
+                <div *ngIf="showChangesField">
+                    <form class="change-data-cont" [formGroup]="unknownForm" (ngSubmit)="onSubmitunknownForm(unknown.id)">
+                        <mat-form-field>
+                            <mat-label>Year</mat-label>
+                            <input matInput type="number" [value]="unknown.id" formControlName="year">
+                        </mat-form-field>
+                        <span class="invalid-message" *ngIf="unknownForm.get('year')?.invalid">Please input year from 1930 to {{maxDate.getFullYear()}}</span>
+                        <mat-form-field>
+                            <mat-label>Color</mat-label>
+                            <input matInput [value]="unknown.id" formControlName="color">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Pantone</mat-label>
+                            <input matInput [value]="unknown.id" formControlName="pantone_value">
+                        </mat-form-field>
+                        <div class="btns-block">
+                            <button mat-raised-button type="submit" class="change" [disabled]="!unknownForm.valid">Save</button>
+                            <button mat-raised-button class="cancel" (click)="showChangesField = false">Cancel</button>
+                        </div>
+                    </form>
+                </div> 
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>      
+    

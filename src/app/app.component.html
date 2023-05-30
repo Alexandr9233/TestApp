@@ -1,0 +1,37 @@
+<mat-toolbar class="header-wrap">
+  <div class="left-cont">
+  <span class="title-app" [routerLink]="'/app'">{{title}}</span>
+</div>
+  <div class="right-cont">
+    <button *ngIf="!authService.isAuthenticated()" mat-icon-button class="login-btn" [routerLink]="'/auth'">
+      Login
+    </button>
+    <button *ngIf="authService.isAuthenticated()" mat-icon-button class="logout-btn" (click)="authService.logout()">
+      Logout
+    </button>
+    <button *ngIf="!authService.isAuthenticated()" mat-icon-button class="register-btn" [routerLink]="'/auth/register'">
+      Registration
+    </button>
+  <div class="user-info">
+    <button mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+</div>
+</mat-toolbar>
+<div class="content-wrap">
+  <div class="side-nav-cont">
+    <ul class="side-nav">
+      <li class="elem-of-nav" routerLinkActive="active">
+        <a [routerLink]="'/app/users'">Users</a>
+      </li>
+      <li class="elem-of-nav" routerLinkActive="active">
+        <a [routerLink]="'/app/unknown'">Unknown</a>
+      </li>
+    </ul>
+  </div>
+  <div class="main-cont">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
